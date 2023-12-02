@@ -2,27 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
-	"strings"
+	fileutils "kqarryzada/advent-of-code-2023/utils"
 )
-
-// LoadFile obtains the entire contents of a file. This requires storing the
-// full contents of the file in memory.
-func LoadFile(filename string) []string {
-	b, err := os.ReadFile(filename)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fileAsSlice := strings.Split(string(b), "\n")
-	if fileAsSlice[len(fileAsSlice)-1] == "" {
-		// Remove the last newline of the file from the slice, if it exists.
-		fileAsSlice = fileAsSlice[:len(fileAsSlice)-1]
-	}
-
-	return fileAsSlice
-}
 
 // hasSubstringAtIndex safely checks whether the requested string is present as
 // a substring starting at the provided index. For example, for an input of
@@ -83,7 +64,7 @@ func extractCalibratedValue(line string) (calibratedValue int) {
 		}
 	}
 
-	// Fetch the first and final values in the slice.
+	// Fetch the first and final values in the array.
 	var first int
 	var last int
 	if len(numberArray) == 0 {
@@ -104,7 +85,7 @@ func extractCalibratedValue(line string) (calibratedValue int) {
 func main() {
 	sum := 0
 
-	fileLines := LoadFile("input.txt")
+	fileLines := fileutils.LoadFile("input.txt")
 	for _, line := range fileLines {
 		value := extractCalibratedValue(line)
 		sum += value
