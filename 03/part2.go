@@ -70,17 +70,21 @@ func extractNumericalValue(row int, column int, matrix [][]rune) int {
 	return retval
 }
 
-// calculateGearValue takes in the coordinates of a spceial character and
-// obtains the "gear value". A "gear" is a '*' character in the input matrix
-// which has two and only two neighboring numbers.  This function returns the
-// product of these two numbers, which is known as the "gear value". If the
-// character at the provided coordinates is not a proper gear (even if it
-// points to a '*' character), this function will return 0.
-func calculateGearValue(row int, column int, matrix [][]rune) int {
+// calculateGearRatio takes in the coordinates of a character and obtains
+// the "gear ratio". A "gear" is a '*' character in the input matrix which has
+// two and only two neighboring numbers.  This function returns the product of
+// these two numbers, which is known as the "gear value". If the character at
+// the provided coordinates is not a proper gear (even if it points to a '*'
+// character), this function will return 0.
+func calculateGearRatio(row int, column int, matrix [][]rune) int {
+	if !isGearCharacter(matrix[row][column]) {
+		return 0
+	}
+
 	lastColumnIndex := len(matrix[0]) - 1
 	lastRowIndex := len(matrix) - 1
 
-	gearValues := make([]int, 0)
+	gearRatios := make([]int, 0)
 
 	// In most cases, the local sum is calculated by starting at
 	// [row - 1, column -1] in the matrix and checking for digits from left to
@@ -94,33 +98,24 @@ func calculateGearValue(row int, column int, matrix [][]rune) int {
 		for j := startingColumn; j <= endingColumn; j++ {
 			value := extractNumericalValue(i, j, matrix)
 			if value != 0 {
-				gearValues = append(gearValues, value)
+				gearRatios = append(gearRatios, value)
 			}
 		}
 	}
 
-	if len(gearValues) != 2 {
+	if len(gearRatios) != 2 {
 		return 0
 	}
 
-	return gearValues[0] * gearValues[1]
-}
-
-func processRow(rowNumber int, matrix [][]rune) int {
-	rowSum := 0
-	for i, char := range matrix[rowNumber] {
-		if isGearCharacter(char) {
-			rowSum += calculateGearValue(rowNumber, i, matrix)
-		}
-	}
-
-	return rowSum
+	return gearRatios[0] * gearRatios[1]
 }
 
 func processMatrix(matrix [][]rune) int {
 	sum := 0
 	for row := 0; row < len(matrix); row++ {
-		sum += processRow(row, matrix)
+		for column, _ := range matrix[row] {
+			sum += calculateGearRatio(row, column, matrix)
+		}
 	}
 
 	return sum
@@ -135,5 +130,5 @@ func main() {
 	}
 
 	sum := processMatrix(matrix)
-	fmt.Printf("The sum of all the gear values is %d.\n", sum)
+	fmt.Printf("The sum of all the gear ratios is %d.\n", sum)
 }
