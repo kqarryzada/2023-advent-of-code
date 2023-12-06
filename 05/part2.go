@@ -9,24 +9,24 @@ import (
 	"strings"
 )
 
-// A mapEntry is a field within one of the maps product-to-product maps. The
-// "maps" described by the problem are actually slices of mapEntry values,
-// allowing each entry to hold multiple values.
+// A mapEntry is a field within a product-to-product maps. These "maps"
+// described by the problem are actually slices that contain mapEntry values,
+// which allows the maps to hold multiple values.
 //
 // Each mapEntry contains a "source", "destination", and "range" field that
 // describes a component of the values that are covered by the range of this
-// mapEntry. For example, a two mapEntry objects that have source and range
-// values of (0, 2) and (5, 3) cover the source numbers of 0, 1, 5, 6, and 7.
+// mapEntry. For example, two mapEntry objects that have source and range values
+// of (0, 2) and (5, 3) cover the source numbers of 0, 1, 5, 6, and 7.
 type mapEntry struct {
 	dest     int64
 	source   int64
 	rangeVal int64
 }
 
-// These slices correspond to the map values, and indicate the range of values
-// that each map covers as well as the destination values that the source value
-// should be mapped to. To obtain the appropriate destination value from one of
-// these maps, refer to the calculateValue() function.
+// These slices represent the product maps, and indicate the range of values
+// that each map covers as well as the destination values. To obtain the
+// appropriate destination value from one of  these maps, refer to the
+// calculateValue() function.
 var seedToSoilMap []mapEntry = make([]mapEntry, 0)
 var soilToFertilizerMap []mapEntry = make([]mapEntry, 0)
 var fertilizerToWaterMap []mapEntry = make([]mapEntry, 0)
@@ -143,6 +143,7 @@ func initializeMaps(fileLines []string) {
 		humidityToLocationMap = append(humidityToLocationMap, *entry)
 	}
 
+	// Sort the map entries by source values to optimize lookups.
 	sort.Slice(seedToSoilMap, func(a, b int) bool {
 		return seedToSoilMap[a].source < seedToSoilMap[b].source
 	})
