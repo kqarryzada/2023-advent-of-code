@@ -1,4 +1,9 @@
-package fileutils
+package utils
+
+import (
+	"strconv"
+	"strings"
+)
 
 // FindPrimeFactors computes the set of prime factors of a number and returns
 // the factors as a slice of unsigned integers.
@@ -42,4 +47,19 @@ func FindLCM(numbers []int) uint64 {
 	}
 
 	return lcm
+}
+
+// AsNumericalSlice converts a line of space-delimited numbers in a string and
+// converts it into a slice of integers.
+func AsNumericalSlice(inputLine string) *[]int {
+	returnSlice := make([]int, 0)
+	for _, val := range strings.Fields(inputLine) {
+		intValue, err := strconv.Atoi(val)
+		if err != nil {
+			panic("Unable to convert number: " + val)
+		}
+		returnSlice = append(returnSlice, intValue)
+	}
+
+	return &returnSlice
 }
