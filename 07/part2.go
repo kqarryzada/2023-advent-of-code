@@ -68,7 +68,7 @@ func computeWildcard(currentHand pokerHandValue, numberWildcards int) pokerHandV
 		case fourOfAKind:
 			returnHand = fiveOfAKind
 		default:
-			panic(fmt.Sprintf("Unexpected hand type with 1 wildcard: %d", currentHand))
+			panic(fmt.Sprintf("Unexpected hand type with %d wildcard: %d", numberWildcards, currentHand))
 		}
 
 		return returnHand
@@ -83,7 +83,7 @@ func computeWildcard(currentHand pokerHandValue, numberWildcards int) pokerHandV
 		case fullHouse:
 			returnHand = fiveOfAKind
 		default:
-			panic(fmt.Sprintf("Unexpected hand type with 2 wildcards: %d", currentHand))
+			panic(fmt.Sprintf("Unexpected hand type with %d wildcards: %d", numberWildcards, currentHand))
 		}
 
 		return returnHand
@@ -96,7 +96,7 @@ func computeWildcard(currentHand pokerHandValue, numberWildcards int) pokerHandV
 		case fullHouse:
 			returnHand = fiveOfAKind
 		default:
-			panic(fmt.Sprintf("Unexpected hand type with 3 wildcards: %d", currentHand))
+			panic(fmt.Sprintf("Unexpected hand type with %d wildcards: %d", numberWildcards, currentHand))
 		}
 
 		return returnHand
@@ -107,7 +107,7 @@ func computeWildcard(currentHand pokerHandValue, numberWildcards int) pokerHandV
 		case fourOfAKind:
 			returnHand = fiveOfAKind
 		default:
-			panic(fmt.Sprintf("Unexpected hand type with 3 wildcards: %d", currentHand))
+			panic(fmt.Sprintf("Unexpected hand type with %d wildcards: %d", numberWildcards, currentHand))
 		}
 
 		return returnHand

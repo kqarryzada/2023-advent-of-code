@@ -29,5 +29,5 @@ func main() {
 		}
 	}
 
-	fmt.Printf("The product of the winning combinations is %d.\n", result)
+	fmt.Printf("The number of winning combinations is %d.\n", result)
 }
