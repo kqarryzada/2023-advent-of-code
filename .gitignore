@@ -2,3 +2,6 @@
 *.iml
 
 .DS_Store
+
+# Debug dumps can be placed in these files.
+*.out
