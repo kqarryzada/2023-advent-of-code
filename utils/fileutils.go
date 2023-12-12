@@ -20,5 +20,9 @@ func LoadFile(filename string) []string {
 		fileAsSlice = fileAsSlice[:len(fileAsSlice)-1]
 	}
 
+	if len(fileAsSlice) == 0 {
+		panic("The input file is empty.")
+	}
+
 	return fileAsSlice
 }
