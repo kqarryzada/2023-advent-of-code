@@ -184,13 +184,12 @@ func fetchEastNeighbor(inputNode *node) *node {
 
 // appendToQueueWithDistance updates the distance value of a node and places it
 // in the provided queue. This function will safely handle nil or
-// previously-visited input nodes by returning the input queue.
+// previously-visited input nodes by returning the provided queue.
 func appendToQueueWithDistance(queue []*node, inputNode *node, distance int) []*node {
 	if inputNode == nil {
 		return queue
 	}
 
-	// Check if the node has already been visited.
 	if inputNode.distance != 0 || inputNode.nodeType == starting {
 		return queue
 	}
@@ -229,8 +228,8 @@ func computeGraph(inputLines *[]string) int {
 		}
 	}
 
-	// The final iteration in the loop will increment the maxDistance, but it
-	// that node will have no unvisited neighbors.
+	// The final iteration in the loop will increment the maxDistance, but that
+	// node will have no unvisited neighbors.
 	return maxDistance - 1
 }
 
@@ -367,8 +366,7 @@ func findEnclosedValueCount() int {
 			// Iterate until we skip over all subsequent dash characters in this
 			// row.
 			prevNodeType := nodeType
-			j++
-			for ; j < len(graph[0]); j++ {
+			for j++; j < len(graph[0]); j++ {
 				if getNodeType(graph[i][j]) != dash {
 					break
 				}
