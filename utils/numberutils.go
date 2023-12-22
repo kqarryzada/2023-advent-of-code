@@ -42,7 +42,7 @@ func FindLCM(numbers []int) uint64 {
 		}
 	}
 	lcm := uint64(1)
-	for primeFactor, _ := range factorMap {
+	for primeFactor := range factorMap {
 		lcm *= primeFactor
 	}
 
@@ -54,12 +54,17 @@ func FindLCM(numbers []int) uint64 {
 func AsNumericalSlice(inputLine string) *[]int {
 	returnSlice := make([]int, 0)
 	for _, val := range strings.Fields(inputLine) {
-		intValue, err := strconv.Atoi(val)
-		if err != nil {
-			panic("Unable to convert number: " + val)
-		}
-		returnSlice = append(returnSlice, intValue)
+		returnSlice = append(returnSlice, AsInt(val))
 	}
 
 	return &returnSlice
+}
+
+func AsInt(numString string) int {
+	value, err := strconv.Atoi(numString)
+	if err != nil {
+		panic("Unexpected error when converting number: " + numString)
+	}
+
+	return value
 }
